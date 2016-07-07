@@ -1,0 +1,17 @@
+#container {
+    margin: 0 auto;
+    width: 70%;
+    padding: 2em;
+}
+
+#t {
+    padding: 2em;
+}
+
+h1 {
+    color:#5599FF;
+}
+
+button {
+    display: inline;
+}
