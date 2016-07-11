@@ -17,16 +17,31 @@
         POST <span class="glyphicon glyphicon-hand-up"></span>
     </button></a>
 
-    <div id="t"><table class="table-hover">
+    <div id="t"><table class="table-hover" id="table">
         <thead><tr>
             <th width="30%">Date</th>
             <th width="60%">Title</th>
             <th width="25%">Author</th>
         </tr></thead>
+        <tbody></tbody>
     </table></div>
     <hr style="background-color: #5599FF; height: 2px">
     <p style="text-align: center;">copyright@</p>
 </div>
+<!--<script type="text/javascript" href="jquery.js"></script>-->
+<script>
+     $.ajax({
+        url: "/articles",
+        type: "GET",
+        dataType: "json",
+        success: function(Jdata) {
+            alert("SUCCESS!!!");
+        },
+        error: function() {
+            alert("ERROR!!!");
+        }
+    });
+</script>
 <script type="text/javascript" href="blog.js"></script>
 </body>
 </html>
