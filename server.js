@@ -1,6 +1,7 @@
 var http = require("http");
 var express = require("express");
 var path = require("path");
+var bodyParser = require('body-parser');
 //DB
 var mongoose = require("mongoose");
 mongoose.connect('mongodb://localhost/article_db');
@@ -23,8 +24,10 @@ var article = mongoose.model('Article', Article_Schema);
 var app = express();
 // for static files
 app.use(express.static(path.join(__dirname, 'public')));
-//paging
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
+//paging
 //homepage
 app.get( ('/' || '/home.html') , function(req, res){
     res.sendfile("home.html", { root: path.join(__dirname, 'public') });
@@ -34,7 +37,7 @@ app.get( ('/' || '/home.html') , function(req, res){
 //post page
 app.get('/post.html',function(req, res){
     res.sendfile("post.html", { root: path.join(__dirname, 'public') });
-    console.log("Turn to posting page...");
+    //console.log("Turn to posting page...");
 });
 
 app.get('/articles',function(req,res){
@@ -45,6 +48,22 @@ app.get('/articles',function(req,res){
         };
         res.json(articles);
     });
+});
+
+app.post('/posting', function(req,res){
+    //console.log(req.body);
+   // var nowdate = new Date().toISOString().substring(0, 10);
+    var intemp = {
+        Title: req.body.title,
+        Author: req.body.author,
+        Content: req.body.article,
+        Create: Date.now(),
+        UpDate: Date.now(),
+    };
+    article.create(intemp, function(err, article){
+        res.json(article);
+    });
+   // db.collection('Article').insert(intemp);
 });
 
 //create server

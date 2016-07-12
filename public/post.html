@@ -13,26 +13,39 @@
 <body>
 <div id="container">      
     <h1>Posting Page</h1>
-    <form role="form" id="t">
+    <form role="form" id="t form" method="POST">
         <div class="form-group">
             <label for="Title">Title</label>
-            <input type="text" class="form-control" id="title">
+            <input type="text" class="form-control" name="title">
         </div>
         <div class="form-group">
             <label for="author">Author</label>
-            <input type="author" class="form-control" id="author">
+            <input type="author" class="form-control" name="author">
         </div>
         <div class="form-group">
             <label for="article">Article</label>
-            <textarea class="form-control" rows="5" id="article"></textarea>
+            <textarea class="form-control" rows="5" name="article"></textarea>
         </div>
     </form>
     <div style="padding-left: 2em">
-        <button id="post" class="btn btn-success">Post</button>
         <a href= "home.html">
+            <button id="post" class="btn btn-success">Post</button>       
             <button id="cancel" class="btn btn-dault">Cancel</button>
         </a>
     </div>
 </div>
+<script>
+    $('#post').click(function(){
+        $.ajax({
+            type: "POST",
+            url: "/posting",
+            data: $('form').serialize(),
+            success: function(data)
+            {
+               // alert(data);
+            }
+        });
+    });
+</script>
 <script type="text/javascript" href="blog.js"></script>
 </body></html>

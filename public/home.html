@@ -19,23 +19,33 @@
 
     <div id="t"><table class="table-hover" id="table">
         <thead><tr>
-            <th width="30%">Date</th>
+            <th width="33%">Date</th>
             <th width="60%">Title</th>
             <th width="25%">Author</th>
         </tr></thead>
-        <tbody></tbody>
+        <tbody id="tb"></tbody>
     </table></div>
     <hr style="background-color: #5599FF; height: 2px">
     <p style="text-align: center;">copyright@</p>
 </div>
 <!--<script type="text/javascript" href="jquery.js"></script>-->
-<script>
+<script type="text/javascript">
      $.ajax({
         url: "/articles",
         type: "GET",
         dataType: "json",
         success: function(Jdata) {
-            alert("SUCCESS!!!");
+            //alert("SUCCESS!!!");
+            var arr = Jdata;
+            var i;
+            var out = "";
+            //alert(arr.length);
+            for(i = 0; i < arr.length; i++) 
+            {
+                out += "<tr><td>" + arr[i].Create.substring(0, 10) + "</td><td>" + arr[i].Title + "</td><td>" + arr[i].Author + "</td></tr>";
+            }
+            //alert(out);
+            document.getElementById("tb").innerHTML = out;            
         },
         error: function() {
             alert("ERROR!!!");
