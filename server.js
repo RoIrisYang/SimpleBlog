@@ -31,13 +31,23 @@ app.use(bodyParser.json())
 //homepage
 app.get( ('/' || '/home.html') , function(req, res){
     res.sendfile("home.html", { root: path.join(__dirname, 'public') });
-    console.log("Turn to home...");
 });
 
 //post page
 app.get('/post.html',function(req, res){
     res.sendfile("post.html", { root: path.join(__dirname, 'public') });
-    //console.log("Turn to posting page...");
+});
+app.post('/posting', function(req,res){
+    var intemp = {
+        Title: req.body.title,
+        Author: req.body.author,
+        Content: req.body.article,
+        Create: Date.now(),
+        UpDate: Date.now(),
+    };
+    article.create(intemp, function(err, article){
+        res.json(article);
+    });
 });
 
 app.get('/articles',function(req,res){
@@ -50,25 +60,8 @@ app.get('/articles',function(req,res){
     });
 });
 
-app.post('/posting', function(req,res){
-    //console.log(req.body);
-   // var nowdate = new Date().toISOString().substring(0, 10);
-    var intemp = {
-        Title: req.body.title,
-        Author: req.body.author,
-        Content: req.body.article,
-        Create: Date.now(),
-        UpDate: Date.now(),
-    };
-    article.create(intemp, function(err, article){
-        res.json(article);
-    });
-   // db.collection('Article').insert(intemp);
-});
-
 //create server
 var server = http.createServer(app);
 server.listen(8080,function(){
     console.log("Server running...");
 });
-
