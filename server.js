@@ -24,19 +24,20 @@ var article = mongoose.model('Article', Article_Schema);
 var app = express();
 // for static files
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 //paging
 //homepage
-app.get( ('/' || '/home.html') , function(req, res){
-    res.sendfile("home.html", { root: path.join(__dirname, 'public') });
+app.get( ('/' || '/home-new.html') , function(req, res){
+    res.sendfile("home-new.html", { root: path.join(__dirname, 'public') });
 });
 
 //post page
-app.get('/post.html',function(req, res){
+/*app.get('/post.html',function(req, res){
     res.sendfile("post.html", { root: path.join(__dirname, 'public') });
-});
+});*/
 app.post('/posting', function(req,res){
     var intemp = {
         Title: req.body.title,
