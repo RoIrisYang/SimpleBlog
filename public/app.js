@@ -24,7 +24,7 @@
                         '<th width="60%">Title</th>' +
                         '<th width="25%">Author</th>' +
                     '</tr></thead>' +
-                    '<tbody id="tb" ng-repeat="data in $ctrl"><tr>' +
+                    '<tbody id="tb" ng-repeat="data in alldata"><tr>' +
                         '<td>{{data.Create.substring(0, 10)}}</td>' +
                         '<td><a ng-link="[\'Detail\',{id: data.id}]">{{data.Title}}</a></td>'+
                         '<td>{{data.Author}}</td></tr>' +
@@ -50,28 +50,30 @@
                     '</div>' +
                 '</form>' +
                 '<a ng-link="[\'Articles\']"><button id="post" class="btn btn-success">Post</button></a>\n'+
-                '<a ng-link="[\'Articles\']"><button id="cancel" class="btn btn-dault">Cancel</button></a>\n',
+                '<a ng-link="[\'Articles\']"><button id="cancel" class="btn btn-default">Cancel</button></a>\n',
             controller: posting                
         })
         .component('detail', {
             template:
-                'detail',                
+                '<h3>{{data.Title}}</h3>' +
+                '<a ng-link="[\'Articles\']"><button id="cancel" class="btn btn-default">Back</button></a>'+
+                '<button id="edit" class="btn btn-warning pull-right">Edit</button>'+
+                '<button id="delete" class="btn btn-danger pull-right">Delete</button>',                
+            controller: selecting
         });
     })(window.angular);
 
-function listing(){
-    $.ajax({
-        url: "/articles",
-        type: "GET",
-        dataType: "json",
-        success: function(Jdata) {
-            //alert("SUCCESS!!!");
-            var $ctrl = this;    
-        },
-        error: function() {
-            alert("ERROR!!!");
-        }
-    });
+function listing($scope, $http){
+    $http({method: 'GET', url: '/articles'}).then(
+        function successCallback(response) {
+            $scope.alldata = response.data;
+        }, function errorCallback(response) {
+            alert("Error");
+        });
+}
+
+function selecting($scope){
+    
 }
 
 function posting(){
