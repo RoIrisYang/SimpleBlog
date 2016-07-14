@@ -31,7 +31,7 @@ app.use(bodyParser.json())
 //paging
 //homepage
 app.get( ('/' || '/home-new.html') , function(req, res){
-    res.sendfile("home-new.html", { root: path.join(__dirname, 'public') });
+    res.sendFile("home-new.html", { root: path.join(__dirname, 'public') });
 });
 
 //post page
@@ -39,10 +39,12 @@ app.get( ('/' || '/home-new.html') , function(req, res){
     res.sendfile("post.html", { root: path.join(__dirname, 'public') });
 });*/
 app.post('/posting', function(req,res){
+    //console.log("in post");
+    //console.log(req.body);
     var intemp = {
-        Title: req.body.title,
-        Author: req.body.author,
-        Content: req.body.article,
+        Title: req.body.Title,
+        Author: req.body.Author,
+        Content: req.body.Content,
         Create: Date.now(),
         UpDate: Date.now(),
     };
@@ -51,7 +53,7 @@ app.post('/posting', function(req,res){
     });
 });
 
-app.get('/articles',function(req,res){
+app.get('/api/articles',function(req,res){
      article.find(function(err, articles){
         if(err){
             console.error(err);
@@ -59,6 +61,50 @@ app.get('/articles',function(req,res){
         };
         res.json(articles);
     });
+});
+
+app.get('/api/articles/:id', function(req, res){
+    article.findOne({_id: req.params.id},function(err, detail){
+        if(err){
+            console.error(err);
+            res.json({error: err.Title}, 500);
+        };
+        res.json(detail);
+    });    
+});
+
+app.delete('/api/articles/:id', function(req, res){
+   // console.log("in delete");
+    article.remove({_id: req.params.id},function(err, de){
+        if(err){
+            console.error(err);
+            res.send({error: err.Title}, 500);
+        };
+        res.json({message: 'Deleted!!!'});
+    });
+});
+
+app.put('/api/articles/:id', function(req, res){
+    //console.log("in edit");
+    article.findById(req.params.id, function(err, p) {
+        if (!p)
+            return next(new Error('Could not load Document'));
+        else {
+            // do your updates here
+            p.Title = req.body.Title;
+            p.Author = req.body.Author;
+            p.Content = req.body.Content;
+            p.UpDate = Date.now();
+
+            p.save(function(err) {
+            if (err)
+                console.log('error');
+            else
+                console.log('');
+            });
+        }
+    });
+    res.json({message: 'OK'});
 });
 
 //create server
