@@ -82,7 +82,7 @@
                         '<textarea class="form-control" rows="5" name="article" ng-model="$ctrl.data.Content"></textarea>' +
                     '</div>' +
                 '</form>' +
-                '<div class="panel-footer"><a ng-link="[\'Articles\']"><button id="edit" class="btn btn-warning pull-right" ng-click="$ctrl.edit()">Edit</button></a>'+
+                '<div class="panel-footer"><a ng-link="[\'Detail\',{id: $ctrl.data._id}]"><button id="edit" class="btn btn-warning pull-right" ng-click="$ctrl.edit()">Edit</button></a>'+
                 '<a ng-link="[\'Articles\']"><button id="cancel" class="btn btn-default pull-right">Cancel</button></a><div><br>',
             controller: editing
         });
