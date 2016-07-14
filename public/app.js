@@ -146,7 +146,7 @@ function editing($http){
 
 function posting($http){
     this.post = function(){
-        $http({method: 'POST', url: '/posting', data: this.data}).then(
+        $http({method: 'POST', url: '/api/articles', data: this.data}).then(
              function success(response){
                  //alert("Post success.");
              },function error(response){

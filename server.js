@@ -38,7 +38,7 @@ app.get( ('/' || '/home-new.html') , function(req, res){
 /*app.get('/post.html',function(req, res){
     res.sendfile("post.html", { root: path.join(__dirname, 'public') });
 });*/
-app.post('/posting', function(req,res){
+app.post('/api/articles', function(req,res){
     //console.log("in post");
     //console.log(req.body);
     var intemp = {
