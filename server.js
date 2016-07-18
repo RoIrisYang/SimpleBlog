@@ -109,6 +109,6 @@ app.put('/api/articles/:id', function(req, res){
 
 //create server
 var server = http.createServer(app);
-server.listen(8080,function(){
+server.listen(process.env.PORT || 8080,function(){
     console.log("Server running...");
 });
